@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAZET クイズアプリ | ドイツの名門工具ブランドに挑戦</title>
+    <meta name="description" content="ドイツの老舗・プレミアム工具メーカー「HAZET（ハゼット）」についての非公式クイズアプリです。初級・中級・上級のコースであなたの知識を試しましょう！">
+    
+    <!-- Google Fonts: Outfit & Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-decorations">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-text">HAZET</span>
+                <span class="logo-sub">QUIZ</span>
+            </div>
+        </header>
+
+        <!-- MAIN WINDOW -->
+        <main class="main-card glass-panel">
+            
+            <!-- 1. START SCREEN -->
+            <section id="start-screen" class="screen active">
+                <div class="welcome-section">
+                    <h1 class="main-title">HAZETの世界へようこそ</h1>
+                    <p class="subtitle">1868年創業、ドイツ・レムシャイトの名門工具メーカー「HAZET（ハゼット）」。その歴史、製品、こだわりに関するクイズに挑戦しよう！</p>
+                </div>
+
+                <div class="course-selection">
+                    <h2 class="section-title">コース（難易度）を選択してください</h2>
+                    
+                    <div class="course-grid">
+                        <!-- Beginner Card -->
+                        <div class="course-card" data-level="beginner" id="btn-level-beginner">
+                            <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <h3>初級コース</h3>
+                            <p>基本的な工具の名称やブランド名の由来など、ハゼットの基本知識を問うコースです。</p>
+                            <span class="badge">全 5 問</span>
+                        </div>
+
+                        <!-- Intermediate Card -->
+                        <div class="course-card" data-level="intermediate" id="btn-level-intermediate">
+                            <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                            <h3>中級コース</h3>
+                            <p>代表的なツールワゴン「Assistent」や独自技術「Traction Profile」など、少し踏み込んだ知識を試すコースです。</p>
+                            <span class="badge">全 5 問</span>
+                        </div>
+
+                        <!-- Advanced Card -->
+                        <div class="course-card" data-level="advanced" id="btn-level-advanced">
+                            <div class="card-icon"><i class="fa-solid fa-gears"></i></div>
+                            <h3>上級コース</h3>
+                            <p>精密なトルクレンチの型番や仕様、ドイツ国内の工場所在地など、ディープなハゼットマニア向けの超難関コースです。</p>
+                            <span class="badge">全 5 問</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-area">
+                    <button id="start-quiz-btn" class="btn btn-primary disabled" disabled>
+                        <span>クイズを始める</span> <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 2. PLAY SCREEN -->
+            <section id="play-screen" class="screen">
+                <div class="quiz-header">
+                    <div class="progress-info">
+                        <span id="question-number">第 1 / 5 問</span>
+                        <span id="course-badge" class="level-indicator">初級</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div id="quiz-progress-bar" class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <h2 id="question-text" class="question-text">ここに問題文が表示されます</h2>
+                </div>
+
+                <div id="choices-container" class="choices-grid">
+                    <!-- Choice Buttons will be generated here -->
+                </div>
+
+                <!-- Feedback Popup Panel -->
+                <div id="feedback-panel" class="feedback-panel hidden">
+                    <div class="feedback-header">
+                        <div class="feedback-icon" id="feedback-icon-container">
+                            <!-- JS will inject check/cross icon -->
+                        </div>
+                        <h3 id="feedback-title">正解！</h3>
+                    </div>
+                    
+                    <div class="feedback-body">
+                        <p id="correct-answer-alert" class="correct-answer-alert hidden">
+                            正解は: <strong id="correct-answer-text"></strong>
+                        </p>
+                        <div class="explanation-box">
+                            <h4><i class="fa-solid fa-circle-info"></i> 解説</h4>
+                            <p id="explanation-text">ここに解説が表示されます。</p>
+                        </div>
+                    </div>
+
+                    <div class="feedback-action">
+                        <button id="next-question-btn" class="btn btn-accent">
+                            <span>次の問題へ</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. RESULT SCREEN -->
+            <section id="result-screen" class="screen">
+                <div class="result-summary">
+                    <div class="trophy-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h1 id="result-score-title">5問中 4問正解！</h1>
+                    <p id="result-evaluation" class="result-evaluation">ハゼットマニア級！素晴らしい知識です。</p>
+                </div>
+
+                <!-- Review Section -->
+                <div class="review-section">
+                    <h2 class="review-title"><i class="fa-solid fa-rectangle-list"></i> 今回の問題と解説の振り返り</h2>
+                    <div id="review-list" class="review-list">
+                        <!-- Review items will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Shared & Retry -->
+                <div class="result-actions">
+                    <button id="share-x-btn" class="btn btn-x-share">
+                        <i class="fa-brands fa-x-twitter"></i> <span>結果をXに投稿する</span>
+                    </button>
+                    <button id="retry-btn" class="btn btn-outline">
+                        <i class="fa-solid fa-rotate-left"></i> <span>もう一度挑戦する</span>
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <p>※ 本アプリはファンコンテンツであり、HAZET社（HAZET-WERK）の公式アプリケーションではありません。</p>
+            <p>&copy; 2026 HAZET QUIZ Project. All tools reference HAZET official catalogs.</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
